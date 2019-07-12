@@ -1,16 +1,16 @@
 spring:
   profiles: local
 server:
-  port: 10600
+  port: 10500
   tomcat:
     basedir: /data/deployer/redis-api/tomcat
 log:
   path: ./logs
   level: INFO
 jedis:
-  host: 10.168.99.247
+  host: 127.0.0.1
   port: 6379
-  password: ar
+  password: 
   timeout: 1000
   pool:
       maxTotal: 100

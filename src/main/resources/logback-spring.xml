@@ -29,10 +29,6 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="org.apache.zookeeper.ClientCnxn" level="ERROR" />
-    <logger name="com.taobao.pamirs.schedule.zk.ScheduleDataManager4ZK" level="ERROR"/>
-    <logger name="com.taobao.pamirs.schedule.taskmanager.TBScheduleManagerStatic" level="ERROR" />
-
     <root level="${logLevel}">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILEOUT" />
