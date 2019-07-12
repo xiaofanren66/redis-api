@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <springProperty scope="context" name="logLevel" source="log.level" />
+    <springProperty scope="context" name="logPath" source="log.path" defaultValue="/data/logs/redis-api" />
+    <property scope="context" name="FILE_NAME" value="redis-api" />
+    <property name="encoding" value="UTF-8"/>
+    <property name="normal-pattern"
+              value="[%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c:%L] [clientIp:%X{clientIp}] [%thread] [sessionId:%X{sessionId}] [traceId:%X{traceId}] %-5level %msg%n"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${normal-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+    </appender>
+    <appender name="FILEOUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}/${FILE_NAME}.log</file>
+        <append>false</append>
+        <!-- 日志文件的格式 -->
+        <encoder>
+            <pattern>${normal-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <!-- 示例：每天生成一个日志文件，保存90天的日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/${FILE_NAME}.%d{yyyy-MM-dd-HH}.log.gz</fileNamePattern>
+            <maxHistory>1200</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.apache.zookeeper.ClientCnxn" level="ERROR" />
+    <logger name="com.taobao.pamirs.schedule.zk.ScheduleDataManager4ZK" level="ERROR"/>
+    <logger name="com.taobao.pamirs.schedule.taskmanager.TBScheduleManagerStatic" level="ERROR" />
+
+    <root level="${logLevel}">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILEOUT" />
+    </root>
+</configuration>
