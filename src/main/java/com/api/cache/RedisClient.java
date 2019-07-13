@@ -1054,4 +1054,13 @@ public class RedisClient {
 	public long pfcount(String key) {
 		return 0;
 	}
+	
+	public Object eval(String script, List<String> keys, List<String> args) {
+    	Jedis jedis = jedisPool.getResource();
+    	try {
+    		return jedis.eval(script, keys, args);
+        } finally {
+            release(jedis);
+        }
+	}
 }
