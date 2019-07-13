@@ -1,5 +1,6 @@
 package com.api.cache;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -541,7 +542,6 @@ public class RedisClient {
 	 */
 	public Long lpush(String key, String[] items) {
 		Jedis jedis = jedisPool.getResource();
-
 		try {
 			return jedis.lpush(key, items);
 		} finally {
@@ -1083,7 +1083,14 @@ public class RedisClient {
 	}
 
 	public List<String> brpop(int paramInt, String key) {
-		return null;
+		Jedis jedis = jedisPool.getResource();
+		List<String> result = new ArrayList<String>();
+		try {
+			result = jedis.brpop(paramInt, key);
+		} finally {
+			release(jedis);
+		}
+		return result;
 	}
 
 	public Long bitcount(String key) {
