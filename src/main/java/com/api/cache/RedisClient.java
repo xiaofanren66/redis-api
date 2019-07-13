@@ -753,7 +753,54 @@ public class RedisClient {
 	 * @return 如果成员元素是集合的成员，返回 1 。 如果成员元素不是集合的成员，或 key 不存在，返回 0 。
 	 */
 	public Boolean sismember(String key, String value) {
-		return null;
+		Jedis jedis = jedisPool.getResource();
+		try {
+			return jedis.sismember(key, value);
+		} finally {
+			release(jedis);
+		}
+	}
+	
+	/**
+	 * 取交集
+	 * @param keys
+	 * @return
+	 */
+	public Set<String> sinter(String... keys) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			return jedis.sinter(keys);
+		} finally {
+			release(jedis);
+		}
+	}
+	
+	/**
+	 * 取并集
+	 * @param keys
+	 * @return
+	 */
+	public Set<String> sunion(String... keys) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			return jedis.sunion(keys);
+		} finally {
+			release(jedis);
+		}
+	}
+	
+	/**
+	 * 取差集
+	 * @param keys
+	 * @return
+	 */
+	public Set<String> sdiff(String... keys) {
+		Jedis jedis = jedisPool.getResource();
+		try {
+			return jedis.sdiff(keys);
+		} finally {
+			release(jedis);
+		}
 	}
 
 	/**
