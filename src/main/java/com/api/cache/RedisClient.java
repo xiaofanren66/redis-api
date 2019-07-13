@@ -809,7 +809,14 @@ public class RedisClient {
 	}
 
 	public Long zadd(String key, Map<String, Double> paramMap) {
-		return null;
+		Jedis jedis = jedisPool.getResource();
+		Long result = 0l;
+		try {
+			result = jedis.zadd(key, paramMap);
+		} finally {
+			release(jedis);
+		}
+		return result;
 	}
 
 	public Set<String> zrange(String key, long paramLong1, long paramLong2) {
@@ -817,11 +824,25 @@ public class RedisClient {
 	}
 
 	public Long zrem(String key, String[] paramArrayOfString) {
-		return null;
+		Jedis jedis = jedisPool.getResource();
+		Long result = null;
+		try {
+			result = jedis.zrem(key, paramArrayOfString);
+		} finally {
+			release(jedis);
+		}
+		return result;
 	}
 
-	public Double zincrby(String paramString1, double paramDouble, String paramString2) {
-		return null;
+	public Double zincrby(String key, double score, String member) {
+		Jedis jedis = jedisPool.getResource();
+		Double result = null;
+		try {
+			result = jedis.zincrby(key, score, member);
+		} finally {
+			release(jedis);
+		}
+		return result;
 	}
 
 	public Long zrank(String paramString1, String paramString2) {
@@ -829,11 +850,25 @@ public class RedisClient {
 	}
 
 	public Long zrevrank(String paramString1, String paramString2) {
-		return null;
+		Jedis jedis = jedisPool.getResource();
+		Long result = null;
+		try {
+			result = jedis.zrevrank(paramString1, paramString2);
+		} finally {
+			release(jedis);
+		}
+		return result;
 	}
 
 	public Set<String> zrevrange(String key, long paramLong1, long paramLong2) {
-		return null;
+		Jedis jedis = jedisPool.getResource();
+		Set<String> result = null;
+		try {
+			result = jedis.zrevrange(key, paramLong1, paramLong2);
+		} finally {
+			release(jedis);
+		}
+		return result;
 	}
 
 	public Set<Tuple> zrangeWithScores(String key, long paramLong1, long paramLong2) {
@@ -849,7 +884,14 @@ public class RedisClient {
 	}
 
 	public Double zscore(String paramString1, String paramString2) {
-		return null;
+		Jedis jedis = jedisPool.getResource();
+		Double result = 0.0;
+		try {
+			result = jedis.zscore(paramString1, paramString2);
+		} finally {
+			release(jedis);
+		}
+		return result;
 	}
 
 	public List<String> sort(String key) {
