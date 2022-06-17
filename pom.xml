@@ -22,7 +22,7 @@
 		<commons.io.version>2.4</commons.io.version>
 		<jmockit.version>1.18</jmockit.version>
 		<!-- json解析插件 -->
-		<fastjson.version>1.2.28</fastjson.version>
+		<fastjson.version>1.2.83</fastjson.version>
 		<!-- apache 工具类 -->
 		<commons.lang3.version>3.4</commons.lang3.version>
 	</properties>
